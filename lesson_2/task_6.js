@@ -17,5 +17,5 @@ function mathOperation(a, b, op) {
     }
 }
 
-alert(mathOperation(1, 3, '+'))
-alert(mathOperation(2, 3, '*'))
+// alert(mathOperation(1, 3, '+'))
+// alert(mathOperation(2, 3, '*'))
