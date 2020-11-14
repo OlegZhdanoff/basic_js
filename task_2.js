@@ -23,16 +23,16 @@ const player = {
     move(direction) {
         switch (direction) {
             case 2:
-                this.y === 9 ? this.y = 9 : this.y++;
+                this.y >= settings.rowCount - 1 ? this.y = settings.rowCount - 1 : this.y++;
                 break;
             case 4:
-                this.x === 0 ? this.y = 0 : this.x--;
+                this.x < 1 ? this.y = 0 : this.x--;
                 break;
             case 6:
-                this.x === 9 ? this.x = 9 : this.x++;
+                this.x >= settings.colCount - 1 ? this.x = settings.colCount - 1 : this.x++;
                 break;
             case 8:
-                this.y === 0 ? this.y = 0 : this.y--;
+                this.y < 1 ? this.y = 0 : this.y--;
         }
     }
 };
