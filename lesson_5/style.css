@@ -7,7 +7,7 @@
     border: 1px solid rgb(0, 0, 0);
     width: 50px;
     height: 50px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(206, 206, 151);
 }
 
 .cell_white:hover {
@@ -16,17 +16,26 @@
 
 .cell_black {
     border: 1px solid rgb(0, 0, 0);
-    background-color: rgb(53, 53, 53);
-    color: lightgoldenrodyellow;
+    background-color: rgb(117, 117, 117);
     width: 50px;
     height: 50px;
 }
 
 .cell_black:hover {  
-    opacity: 70%;
+    opacity: 10%;
 }
 
 .cellTitle {
     border: none;
     background-color: rgb(255, 255, 255);
+}
+
+.fig_white {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+.fig_black {
+    font-weight: bold;
+    color: black;
 }
