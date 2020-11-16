@@ -5,10 +5,13 @@
 2*. Заполнить созданную таблицу буквами, отвечающими за шахматную фигуру, например К – король, Ф – ферзь и т.п.,
 */
 
-const mainDiv = document.querySelector('div');
+const mainDiv = document.getElementById('chess');
 const chessTable = document.createElement('table');
-chessTable.classList.add("chess_table")
+const chessGame = document.getElementById('chess_game');
+chessTable.classList.add("chess_table");
 mainDiv.appendChild(chessTable);
+chessGame.classList.add('hidden');
+
 
 class ChessTable {
 
@@ -103,7 +106,7 @@ class ChessTable {
                 self.isCellActive = false;
                 const source = document.getElementById(`${self.activeCellX}-${self.activeCellY}`);
                 const target = document.getElementById(`${x}-${y}`);
-                const idx = self.figures.findIndex(isMath);
+                const idx = self.figures.findIndex(isMath); // не смог сделать через стрелочную функцию :(
                 if (source == target) {
                     self.figures.splice(idx, 1);
                 } else {

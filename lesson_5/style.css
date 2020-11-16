@@ -1,4 +1,26 @@
+* {
+    padding: 0;
+    max-width: 1366px;
+    margin: 0 auto;
+}
+
+.hidden {
+    display: none;
+    /* visibility: hidden; */
+}
+
+.chess_game_cl {
+    padding-top: 50px;
+}
+
+.chess {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
 .chess_table {
+    
     border-collapse: collapse;
     text-align: center;
     background-color: rgb(141, 141, 141);
