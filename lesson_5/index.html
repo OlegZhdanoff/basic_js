@@ -28,11 +28,11 @@
                     <a class="nav-link" href="#" id="chess_link">Chess</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Products</a>
+                    <a class="nav-link" href="#" id="shop_link">Products</a>
                 </li>
 
             </ul>
-            <button type="button" class="btn btn-primary">Cart</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart_Modal">Cart</button>
         </div>
     </nav>
 
@@ -72,8 +72,38 @@
 
         </div>
         <div id="chess_info" class="chess">
-            <p>Чтобы сходить фигурой кликните на неё, затем на пустую клетку.</p>
+            <p>Чтобы сходить фигурой, кликните на неё, затем на пустую клетку.</p>
             <p>Чтобы срубить фигуру, кликните по ней два раза.</p>
+        </div>
+    </div>
+    <div id="shop_page" class="shop_items">
+
+    </div>
+    <div class="modal fade" id="cart_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Корзина</h5>
+
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li class="cart_items">
+                            <p class="cart_item_name">Cras justo odio</p>
+                            <p class="cart_item_price">12</p>
+                        </li>
+                        <li>Lorem ipsum dolor sit amet.</li>
+                        <li>Lorem ipsum dolor sit amet.</li>
+                        <li>Lorem, ipsum dolor.</li>
+
+                    </ul>
+                    <p>Всего на сумму: 111руб</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Очистить корзину</button>
+                    <button type="button" class="btn btn-primary">Подтвердить</button>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -87,6 +117,7 @@
         crossorigin="anonymous"></script>
     <script src="main.js"></script>
     <script src="task_1-2.js" async></script>
+    <script src="task_3-4.js" async></script>
 </body>
 
 </html>

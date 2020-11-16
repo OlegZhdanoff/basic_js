@@ -4,6 +4,31 @@
     margin: 0 auto;
 }
 
+.cart_items {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart_item_price {
+    margin: 0;
+}
+
+.cart_item_name {
+    text-align: left;
+    margin: 0;
+}
+
+.shop_items {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.shop_item {
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
 .hidden {
     display: none;
     /* visibility: hidden; */
