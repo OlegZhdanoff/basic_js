@@ -11,8 +11,14 @@ const gallery = {
         openedImageClass: 'galleryWrapper__image',
         openedImageScreenClass: 'galleryWrapper__screen',
         openedImageCloseBtnClass: 'galleryWrapper__close',
+        openedImageArrowLeftClass: 'galleryWrapper__arrow_left',
+        openedImageArrowRightClass: 'galleryWrapper__arrow_right',
+        openedImageArrowLeftSrc: 'images/gallery/arrow_left.png',
+        openedImageArrowRightSrc: 'images/gallery/arrow_right.png',
         openedImageCloseBtnSrc: 'images/gallery/close.png',
     },
+
+    srcList: [],
 
     init(userSettings = {}) {
         Object.assign(this.settings, userSettings);
@@ -21,6 +27,7 @@ const gallery = {
             .addEventListener('click', (event) => {
                 this.containerClickHandler(event);
             });
+        this.initSrcList();
     },
 
     containerClickHandler(event) {
@@ -37,7 +44,7 @@ const gallery = {
         // обработчки ошибок на js мы вообще не проходили даже чуть чуть, странное задание...
         image.onerror = function () {
             alert('картинка не существует');
-            image.src = 'images/gallery/error.jpg';
+            // image.src = 'images/gallery/error.jpg';
         };
     },
 
@@ -64,6 +71,18 @@ const gallery = {
         closeImageElement.addEventListener('click', () => this.close());
         galleryWrapperElement.appendChild(closeImageElement);
 
+        const arrowLeftElement = new Image();
+        arrowLeftElement.classList.add(this.settings.openedImageArrowLeftClass);
+        arrowLeftElement.src = this.settings.openedImageArrowLeftSrc;
+        arrowLeftElement.addEventListener('click', () => this.shiftLeft());
+        galleryWrapperElement.appendChild(arrowLeftElement);
+
+        const arrowRightElement = new Image();
+        arrowRightElement.classList.add(this.settings.openedImageArrowRightClass);
+        arrowRightElement.src = this.settings.openedImageArrowRightSrc;
+        arrowRightElement.addEventListener('click', () => this.shiftRight());
+        galleryWrapperElement.appendChild(arrowRightElement);
+
         const image = new Image();
         image.classList.add(this.settings.openedImageClass);
         galleryWrapperElement.appendChild(image);
@@ -74,6 +93,34 @@ const gallery = {
         return galleryWrapperElement;
     },
 
+    initSrcList() {
+        const allImg = document.querySelector(this.settings.previewSelector)
+            .querySelectorAll('img');
+        allImg.forEach((item) => {
+            this.srcList.push(item.dataset.full_image_url);
+        });
+
+    },
+
+    shiftLeft(event) {
+        const currIdx = this.getCurrIdx();
+        currIdx > 0 ? this.openImage(this.srcList[currIdx - 1])
+            : this.openImage(this.srcList[this.srcList.length - 1]);
+    },
+
+    shiftRight(event) {
+        const currIdx = this.getCurrIdx();
+        currIdx < this.srcList.length - 1
+            ? this.openImage(this.srcList[currIdx + 1])
+            : this.openImage(this.srcList[0]);
+    },
+
+    getCurrIdx() {
+        let currSrc = this.getScreenContainer().querySelector(`.${this.settings.openedImageClass}`).src;
+        currSrc = currSrc.slice(currSrc.lastIndexOf('images'));
+        return this.srcList.indexOf(currSrc);
+    },
+
     close() {
         document.querySelector(`.${this.settings.openedImageWrapperClass}`).remove();
     },
@@ -81,11 +128,3 @@ const gallery = {
 
 gallery.init({ previewSelector: '.galleryPreviewsContainer' })
 
-window.onerror = function (msg, url, lineNo, columnNo, error) {
-    console.log(msg);
-    console.log(url);
-    console.log(lineNo);
-    console.log(columnNo);
-    console.log(error);
-    return false;
-}
