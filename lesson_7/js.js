@@ -110,6 +110,8 @@ const map = {
 
         snakePointsArray.forEach((point, index) => {
             const snakeCell = this.cells[`x${point.x}_y${point.y}`];
+            console.log(snakeCell);
+            console.log(point.x, point.y);
             snakeCell.classList.add(index === 0 ? 'snakeHead' : 'snakeBody');
             this.usedCells.push(snakeCell);
         });
@@ -149,9 +151,9 @@ const snake = {
         return this.getBody().some(snakePoint => snakePoint.x === point.x && snakePoint.y === point.y);
     },
 
-    makeStep() {
+    makeStep(cols = 0, rows = 0) {
         this.lastStepDirection = this.direction;
-        this.body.unshift(this.getNextStepHeadPoint());
+        this.body.unshift(this.getNextStepHeadPoint(cols, rows));
         this.body.pop();
     },
 
@@ -162,18 +164,37 @@ const snake = {
         this.body.push(lastBodyPointClone);
     },
 
-    getNextStepHeadPoint() {
+    getNextStepHeadPoint(cols = 0, rows = 0) {
         const firstPoint = this.getBody()[0];
 
         switch (this.direction) {
             case 'up':
-                return { x: firstPoint.x, y: firstPoint.y - 1 };
+                if ((firstPoint.y - 1) >= 0) {
+                    return { x: firstPoint.x, y: firstPoint.y - 1 };
+                } else {
+                    return { x: firstPoint.x, y: cols - 1 };
+                }
             case 'right':
-                return { x: firstPoint.x + 1, y: firstPoint.y };
+                if ((firstPoint.x + 1) < rows) {
+                    return { x: firstPoint.x + 1, y: firstPoint.y };
+                } else {
+                    return { x: 0, y: firstPoint.y };
+                }
+            // return { x: firstPoint.x + 1, y: firstPoint.y };
             case 'down':
-                return { x: firstPoint.x, y: firstPoint.y + 1 };
+                if ((firstPoint.y + 1) < cols) {
+                    return { x: firstPoint.x, y: firstPoint.y + 1 };
+                } else {
+                    return { x: firstPoint.x, y: 0 };
+                }
+            // return { x: firstPoint.x, y: firstPoint.y + 1 };
             case 'left':
-                return { x: firstPoint.x - 1, y: firstPoint.y };
+                if ((firstPoint.x - 1) >= 0) {
+                    return { x: firstPoint.x - 1, y: firstPoint.y };
+                } else {
+                    return { x: rows - 1, y: firstPoint.y };
+                }
+            // return { x: firstPoint.x - 1, y: firstPoint.y };
         }
     },
 
@@ -325,7 +346,7 @@ const game = {
             return this.finish();
         }
 
-        if (this.food.isOnPoint(this.snake.getNextStepHeadPoint())) {
+        if (this.food.isOnPoint(this.snake.getNextStepHeadPoint(this.config.getColsCount(), this.config.getRowsCount()))) {
             this.snake.growUp();
             this.food.setCoordinates(this.getRandomFreeCoordinates());
 
@@ -338,7 +359,7 @@ const game = {
             }
         }
 
-        this.snake.makeStep();
+        this.snake.makeStep(this.config.getColsCount(), this.config.getRowsCount());
         this.render();
     },
 
@@ -441,13 +462,13 @@ const game = {
     },
 
     canMakeStep() {
-        const nextHeadPoint = this.snake.getNextStepHeadPoint();
+        const nextHeadPoint = this.snake.getNextStepHeadPoint(this.config.getColsCount(), this.config.getRowsCount());
 
         return !this.snake.isOnPoint(nextHeadPoint)
-            && nextHeadPoint.x < this.config.getColsCount()
-            && nextHeadPoint.y < this.config.getRowsCount()
-            && nextHeadPoint.x >= 0
-            && nextHeadPoint.y >= 0
+            // && nextHeadPoint.x < this.config.getColsCount()
+            // && nextHeadPoint.y < this.config.getRowsCount()
+            // && nextHeadPoint.x >= 0
+            // && nextHeadPoint.y >= 0
             && !this.blocks.isOnPoint(nextHeadPoint);
     },
 
@@ -456,4 +477,4 @@ const game = {
     },
 };
 
-game.init({ speed: 5 });
+game.init({ speed: 2 });
