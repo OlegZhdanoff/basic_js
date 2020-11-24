@@ -110,8 +110,8 @@ const map = {
 
         snakePointsArray.forEach((point, index) => {
             const snakeCell = this.cells[`x${point.x}_y${point.y}`];
-            console.log(snakeCell);
-            console.log(point.x, point.y);
+            // console.log(snakeCell);
+            // console.log(point.x, point.y);
             snakeCell.classList.add(index === 0 ? 'snakeHead' : 'snakeBody');
             this.usedCells.push(snakeCell);
         });
@@ -166,6 +166,7 @@ const snake = {
 
     getNextStepHeadPoint(cols = 0, rows = 0) {
         const firstPoint = this.getBody()[0];
+        // console.log(config.getRowsCount());
 
         switch (this.direction) {
             case 'up':
